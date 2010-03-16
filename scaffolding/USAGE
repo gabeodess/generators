@@ -8,22 +8,13 @@ Description:
     views. The resource is ready to use as a starting point for your restful,
     resource-oriented application. Tests or specs are also generated depending
     on if you have a "spec" directory or not.
-    
-    IMPORTANT: This generator uses the "title" helper method which is generated
-    by the nifty_layout generator. You may want to run that generator first.
 
 Usage:
     Pass the name of the model, either CamelCased or under_scored, as the first
     argument along with an optional list of attribute pairs and controller actions.
-    
+
     If no controller actions are specified, they will default to index, show,
     new, create, edit, update, and destroy.
-    
-    =============================
-    = This feature was removed. =
-    =============================
-    # IMPORTANT: If no attribute pairs are specified, no model will be generated.
-    # It will try to determine the attributes from an existing model.
 
     Attribute pairs are column_name:sql_type arguments specifying the
     model's attributes. Timestamps are added by default, so you don't have to
@@ -40,7 +31,7 @@ Usage:
     mentioned. This option doesn't affect model attributes.
 
 Examples:
-    script/generate nifty_scaffold post
+    script/generate scaffolding post
         
         Will create a controller called "posts" it will contain all seven
         CRUD actions along with the views. A model will be created with no
@@ -67,14 +58,14 @@ Examples:
         or write your own.  This will also include the :html => {:multipart => true}
         declaration in your view.
         
-    script/generate nifty_scaffold post name:string content:text index new edit
+    script/generate scaffolding post name:string content:text index new edit
         
         Will create a Post model and migration file with the name and content
         attributes. It will also create a controller with index, new, create,
         edit, and update actions. Notice the create and update actions are
         added automatically with new and edit.
     
-    script/generate nifty_scaffold post ! show new
+    script/generate scaffolding post ! show new
         
         Creates a posts controller (no model) with index, edit, update, and
         destroy actions.
