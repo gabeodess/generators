@@ -1,3 +1,7 @@
 class <%= class_name %> < ActiveRecord::Base
-  attr_accessible <%= attributes.map { |a| ":#{a.name}" }.join(", ") %>
+  
+  <%- associations.each do |association| -%>
+    <%= association.keys.first %> <%= association.values.first %>
+  <%- end -%>
+  
 end

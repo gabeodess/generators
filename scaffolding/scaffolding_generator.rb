@@ -1,5 +1,5 @@
-class NiftyScaffoldGenerator < Rails::Generator::Base
-  attr_accessor :name, :attributes, :controller_actions
+class ScaffoldingGenerator < Rails::Generator::Base
+  attr_accessor :name, :attributes, :controller_actions, :associations
   
   def initialize(runtime_args, runtime_options = {})
     super
@@ -8,12 +8,26 @@ class NiftyScaffoldGenerator < Rails::Generator::Base
     @name = @args.first
     @controller_actions = []
     @attributes = []
+    @associations = []
     
     @args[1..-1].each do |arg|
       if arg == '!'
         options[:invert] = true
       elsif arg.include? ':'
-        @attributes << Rails::Generator::GeneratedAttribute.new(*arg.split(":"))
+        skip_attribute = false
+        if ['has_many', 'belongs_to', 'hm', 'bt'].include?((array = arg.split(':'))[0])
+          case array[0]
+          when 'hm', 'has_many'
+            @associations << {'has_many' => ":#{array[1]}"}
+            skip_attribute = true
+          when 'bt', 'belongs_to'
+            @associations << {'belongs_to' => ":#{array[1]}"}
+            array[0] = "#{array[1]}_id"
+            array[1] = 'string'
+          end
+        else
+        end
+        @attributes << Rails::Generator::GeneratedAttribute.new(*array) unless skip_attribute
       else
         @controller_actions << arg
         @controller_actions << 'create' if arg == 'new'
@@ -66,8 +80,8 @@ class NiftyScaffoldGenerator < Rails::Generator::Base
         m.directory "app/controllers"
         m.template "controller.rb", "app/controllers/#{plural_name}_controller.rb"
         
-        m.directory "app/helpers"
-        m.template "helper.rb", "app/helpers/#{plural_name}_helper.rb"
+        # m.directory "app/helpers"
+        # m.template "helper.rb", "app/helpers/#{plural_name}_helper.rb"
         
         m.directory "app/views/#{plural_name}"
         controller_actions.each do |action|

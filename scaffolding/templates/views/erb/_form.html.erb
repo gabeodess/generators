@@ -1,10 +1,14 @@
 <%% form_for @<%= singular_name %> do |f| %>
   <%%= f.error_messages %>
 <%- for attribute in attributes -%>
+	<%- if attribute.name =~ /_id$/ -%>
+	<%%= f.hidden_field :<%= attribute.name %> %>
+	<%- else -%>
   <p>
     <%%= f.label :<%= attribute.name %> %><br />
     <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
   </p>
+	<%- end -%>
 <%- end -%>
   <p><%%= f.submit "Submit" %></p>
 <%% end %>
