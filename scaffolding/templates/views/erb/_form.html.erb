@@ -1,14 +1,24 @@
-<%% form_for @<%= singular_name %> do |f| %>
-  <%%= f.error_messages %>
+<%% form_for @<%= singular_name %><%= ', :html => {:multipart => true}' unless paperclips.empty? %> do |f| %>
+	<%%= f.error_messages %>
 <%- for attribute in attributes -%>
 	<%- if attribute.name =~ /_id$/ -%>
 	<%%= f.hidden_field :<%= attribute.name %> %>
 	<%- else -%>
-  <p>
-    <%%= f.label :<%= attribute.name %> %><br />
-    <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
-  </p>
+	<p>
+		<%%= f.label :<%= attribute.name %> %><br />
+		<%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
+	</p>
 	<%- end -%>
 <%- end -%>
-  <p><%%= f.submit "Submit" %></p>
+<%- if !paperclips.blank? -%>
+  <%- for paperclip in paperclips -%>
+	<p>
+		<%%= f.label :<%= paperclip %> %><br />
+		<%%= f.file_field :<%= paperclip %> %>
+		<%%= link_to_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
+		<%%= link_to_destroy_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
+	</p>
+  <%- end -%>
+<%- end -%>
+	<p><%%= f.submit "Submit" %></p>
 <%% end %>

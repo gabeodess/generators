@@ -1,5 +1,5 @@
 class ScaffoldingGenerator < Rails::Generator::Base
-  attr_accessor :name, :attributes, :controller_actions, :associations
+  attr_accessor :name, :attributes, :controller_actions, :associations, :paperclips
   
   def initialize(runtime_args, runtime_options = {})
     super
@@ -9,23 +9,26 @@ class ScaffoldingGenerator < Rails::Generator::Base
     @controller_actions = []
     @attributes = []
     @associations = []
+    @paperclips = []
     
     @args[1..-1].each do |arg|
       if arg == '!'
         options[:invert] = true
       elsif arg.include? ':'
         skip_attribute = false
-        if ['has_many', 'belongs_to', 'hm', 'bt'].include?((array = arg.split(':'))[0])
-          case array[0]
-          when 'hm', 'has_many'
-            @associations << {'has_many' => ":#{array[1]}"}
-            skip_attribute = true
-          when 'bt', 'belongs_to'
-            @associations << {'belongs_to' => ":#{array[1]}"}
-            array[0] = "#{array[1]}_id"
-            array[1] = 'string'
-          end
-        else
+        case (array = arg.split(':'))[0]
+        when 'hm', 'has_many'
+          @associations << {'has_many' => ":#{array[1]}"}
+          skip_attribute = true
+        when 'bt', 'belongs_to'
+          @associations << {'belongs_to' => ":#{array[1]}"}
+          array[0] = "#{array[1]}_id"
+          array[1] = 'string'
+        end
+        
+        if array[1] == 'paperclip'
+          @paperclips << array[0]
+          skip_attribute = true
         end
         @attributes << Rails::Generator::GeneratedAttribute.new(*array) unless skip_attribute
       else
@@ -42,16 +45,16 @@ class ScaffoldingGenerator < Rails::Generator::Base
       @controller_actions = all_actions - @controller_actions
     end
     
-    if @attributes.empty?
-      options[:skip_model] = true # default to skipping model if no attributes passed
-      if model_exists?
-        model_columns_for_attributes.each do |column|
-          @attributes << Rails::Generator::GeneratedAttribute.new(column.name.to_s, column.type.to_s)
-        end
-      else
-        @attributes << Rails::Generator::GeneratedAttribute.new('name', 'string')
-      end
-    end
+    # if @attributes.empty?
+    #   options[:skip_model] = true # default to skipping model if no attributes passed
+    #   if model_exists?
+    #     model_columns_for_attributes.each do |column|
+    #       @attributes << Rails::Generator::GeneratedAttribute.new(column.name.to_s, column.type.to_s)
+    #     end
+    #   else
+    #     @attributes << Rails::Generator::GeneratedAttribute.new('name', 'string')
+    #   end
+    # end
   end
   
   def manifest
