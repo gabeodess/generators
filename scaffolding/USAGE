@@ -1,8 +1,8 @@
 Description:
-		This scaffold generator was pulled from Ryan Bate's nifty_scaffold repository 
-		on github and hacked apart by Gabe Odess to bring you new and cool features 
-		such as the ability to include association and paperclip declarations from the 
-		command line.
+    This scaffold generator was pulled from Ryan Bate's nifty_scaffold repository 
+    on github and hacked apart by Gabe Odess to bring you new and cool features 
+    such as the ability to include association and paperclip declarations from the 
+    command line.
 
     Scaffolds an entire resource, from model and migration to controller and
     views. The resource is ready to use as a starting point for your restful,
@@ -19,9 +19,9 @@ Usage:
     If no controller actions are specified, they will default to index, show,
     new, create, edit, update, and destroy.
     
-		 =============================
-		 = This feature was removed. =
-		 =============================
+    =============================
+    = This feature was removed. =
+    =============================
     # IMPORTANT: If no attribute pairs are specified, no model will be generated.
     # It will try to determine the attributes from an existing model.
 
@@ -44,29 +44,29 @@ Examples:
         
         Will create a controller called "posts" it will contain all seven
         CRUD actions along with the views. A model will be created with no
-				attributes.
-				
-		script/generate scaffolding post has_many:comments hm:viewers
-				
-		    Will create a Post model with the comments and viewers has_many 
-		    declarations.
+        attributes.
+        
+    script/generate scaffolding post has_many:comments hm:viewers
 
-		script/generate scaffolding post belongs_to:blog bt:user
+        Will create a Post model with the comments and viewers has_many 
+        declarations.
 
-				Will create a Post model with the blog and user belongs_to declarations 
-				and a migration file with the blog_id and user_id attributes.
+    script/generate scaffolding post belongs_to:blog bt:user
 
-		script/generate scaffolding post photo:paperclip
+        Will create a Post model with the blog and user belongs_to declarations 
+        and a migration file with the blog_id and user_id attributes.
 
-				Will create a Post model with the photo has_attached_file declaration
-				and a file field in your view.  This does not yet generate the paperclip
-				migration, but that is in the works.  This option also drops two methods
-				(link_to_paperclip and link_to_destroy_paperclip) into your view.  You
-				can use my version of these at 
-				http://github.com/gabeodess/templates/blob/master/helpers/paperclip_helper.rb
-				or write your own.  This will also include the :html => {:multipart => true}
-				declaration in your view.
-		    
+    script/generate scaffolding post photo:paperclip
+
+        Will create a Post model with the photo has_attached_file declaration
+        and a file field in your view.  This does not yet generate the paperclip
+        migration, but that is in the works.  This option also drops two methods
+        (link_to_paperclip and link_to_destroy_paperclip) into your view.  You
+        can use my version of these at 
+        http://github.com/gabeodess/templates/blob/master/helpers/paperclip_helper.rb
+        or write your own.  This will also include the :html => {:multipart => true}
+        declaration in your view.
+        
     script/generate nifty_scaffold post name:string content:text index new edit
         
         Will create a Post model and migration file with the name and content
