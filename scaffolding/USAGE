@@ -9,6 +9,15 @@ Description:
     resource-oriented application. Tests or specs are also generated depending
     on if you have a "spec" directory or not.
 
+Dependencies:
+    The generator makes use of a number of helpers in the views which can be acquired
+    from my template repo: 
+    http://github.com/gabeodess/templates/blob/master/helpers/nav_helper.rb
+    http://github.com/gabeodess/templates/blob/master/helpers/paperclip_helper.rb
+    
+    You can feel free to use mine or write your own or take the references out of
+    the views.
+
 Usage:
     Pass the name of the model, either CamelCased or under_scored, as the first
     argument along with an optional list of attribute pairs and controller actions.

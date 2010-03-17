@@ -6,13 +6,23 @@
   <%%=h @<%= singular_name %>.<%= attribute.name %> %>
 </p>
 <%- end -%>
+<% if !paperclips.blank? %>
+  <% for paperclip in paperclips %>
+<p>
+	<strong><%= paperclip.titleize %></strong>
+	<%%= link_to_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
+</p>
+  <% end %>
+<% else %>
+  
+<% end %>
 
 <p>
 <%- if action? :edit -%>
-  <%%= link_to "Edit", edit_<%= singular_name %>_path(@<%= singular_name %>) %> |
+  <%%= link_to_edit @<%= singular_name %>, :text => 'Edit') %> |
 <%- end -%>
 <%- if action? :destroy -%>
-  <%%= link_to "Destroy", @<%= singular_name %>, :confirm => 'Are you sure?', :method => :delete %> |
+  <%%= link_to_destroy @<%= singular_name %>, :text => 'Destroy' %> |
 <%- end -%>
 <%- if action? :index -%>
   <%%= link_to "View All", <%= plural_name %>_path %>

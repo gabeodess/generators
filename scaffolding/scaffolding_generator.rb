@@ -23,7 +23,7 @@ class ScaffoldingGenerator < Rails::Generator::Base
         when 'bt', 'belongs_to'
           @associations << {'belongs_to' => ":#{array[1]}"}
           array[0] = "#{array[1]}_id"
-          array[1] = 'string'
+          array[1] = 'integer'
         end
         
         if array[1] == 'paperclip'
