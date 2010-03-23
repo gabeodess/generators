@@ -3,6 +3,11 @@
 <%- for attribute in attributes -%>
 	<%- if attribute.name =~ /_id$/ -%>
 	<%%= f.hidden_field :<%= attribute.name %> %>
+	<%- elsif currencies.include?(attribute.name) -%>
+	<p>
+		<%%= f.label :your_<%= attribute.name %> %><br />
+		<%%= f.<%= attribute.field_type %> :your_<%= attribute.name %> %>
+	</p>
 	<%- else -%>
 	<p>
 		<%%= f.label :<%= attribute.name %> %><br />
