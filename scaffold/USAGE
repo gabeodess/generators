@@ -9,7 +9,14 @@ Description:
     resource-oriented application. Tests or specs are also generated depending
     on if you have a "spec" directory or not.
 
+Features:
+    - currency as a datatype
+    - paperclip as a datatype
+    - support for associations (has many and belongs to)
+
 Dependencies:
+    This generator is meant to be used with a rails project generated using my
+    custom rails template: http://github.com/gabeodess/templates
     The generator makes use of a number of helpers in the views which can be acquired
     from my template repo: 
     http://github.com/gabeodess/templates/blob/master/helpers/nav_helper.rb
@@ -51,6 +58,10 @@ Examples:
         Will create a Post model with the comments and viewers has_many 
         declarations.
 
+    script/generate scaffolding post has_many_dependent:comments hmd:viewers
+
+        Same as has_many but adds the :dependent => :destroy options.
+
     script/generate scaffolding post belongs_to:blog bt:user
 
         Will create a Post model with the blog and user belongs_to declarations 
@@ -66,6 +77,13 @@ Examples:
         http://github.com/gabeodess/templates/blob/master/helpers/paperclip_helper.rb
         or write your own.  This will also include the :html => {:multipart => true}
         declaration in your view.
+
+    script/generate scaffolding post price:currency
+
+        Will create a Post model with a decimal attribute price.  This option also 
+        generates an attr_accessor, before_save callback, and after_initialize
+        callback all used to handle currency validations.  The currency validation
+        makes use of the Validator class which can be found in my rails template.
         
     script/generate scaffolding post name:string content:text index new edit
         
