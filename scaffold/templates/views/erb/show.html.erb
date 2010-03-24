@@ -3,7 +3,7 @@
 <%- for attribute in attributes -%>
 <p>
   <strong><%= attribute.column.human_name.titleize %>:</strong>
-	<%- if currencies.include?(attribute) -%>
+	<%- if currencies.include?(attribute.name) -%>
   <%%=h number_to_currency(@<%= singular_name %>.<%= attribute.name %>) %>
 	<%- else -%>
 	<%%=h @<%= singular_name %>.<%= attribute.name %> %>

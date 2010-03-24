@@ -1,17 +1,23 @@
 class <%= class_name %> < ActiveRecord::Base
   
+  def after_initialize
+  <%- currencies.each do |currency| -%>
+    self.your_<%= currency %> ||= "$#{<%= currency %>}" if <%= currency %>
+  <%- end -%>
+  end
+  
   # ================
   # = Associations =
   # ================
 <%- associations.each do |association| -%>
-  <%= association.keys.first %> <%= association.values.first %>
+  <%= association.keys.first %> :<%= association.values.first %><%= ", :dependent => :destroy" if dependencies.include?(association.values.first) %>
 <%- end -%>
   
 <%- paperclips.each do |paperclip| -%>
   has_attached_file :<%= paperclip %>
 <%- end -%>
   
-<% if !currencies.blank? %>
+<%- if !currencies.blank? -%>
   # ==============
   # = Attributes =
   # ==============
@@ -20,20 +26,21 @@ class <%= class_name %> < ActiveRecord::Base
   # ===============
   # = Validations =
   # ===============
-  <% for currency in currencies %>
+  <%- for currency in currencies -%>
   validates_format_of :your_<%= currency %>, :with => Validator.currency_regex, :allow_blank => true
-  <% end %>
+  <%- end -%>
   
   # =========
   # = Hooks =
   # =========
   before_save <%= currencies.map{|item| ":set_#{item}"}.join(', ') %>
   
-  <%- currencies.each do |currency| %>
+  <%- currencies.each do |currency| -%>
   def set_<%= currency %>
     self.<%= currency %> = your_<%= currency %>.gsub(/\$|,/, '') if your_<%= currency %>
   end
+  
   <%- end -%>
-<% end %>
+<%- end -%>
   
 end

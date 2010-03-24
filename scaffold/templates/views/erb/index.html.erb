@@ -9,8 +9,12 @@
   <%% for <%= singular_name %> in @<%= plural_name %> %>
     <tr>
     <%- for attribute in attributes -%>
-      <td><%%=h <%= singular_name %>.<%= attribute.name %> %></td>
-    <%- end -%>
+    	<%- if currencies.include?(attribute.name) -%>
+		  <td><%%=h number_to_currency(<%= singular_name %>.<%= attribute.name %>) %></td>
+			<%- else -%>
+			<td><%%=h <%= singular_name %>.<%= attribute.name %> %></td>
+		  <%- end -%>
+		<%- end -%>
 	    <td><%%= link_to_crud <%= singular_name %> %></td>
     </tr>
   <%% end %>
