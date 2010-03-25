@@ -43,7 +43,7 @@ Usage:
     model's attributes. Timestamps are added by default, so you don't have to
     specify them by hand as 'created_at:datetime updated_at:datetime'.
 
-    For example, `scaffolding post name:string content:text hidden:boolean`
+    For example, `scaffold post name:string content:text hidden:boolean`
     gives you a model with those three attributes, a controller that handles
     the create/show/update/destroy, forms to create and edit your posts, and
     an index that lists them all, as well as a map.resources :posts
@@ -54,27 +54,27 @@ Usage:
     mentioned. This option doesn't affect model attributes.
 
 Examples:
-    script/generate scaffolding post
+    script/generate scaffold post
         
         Will create a controller called "posts" it will contain all seven
         CRUD actions along with the views. A model will be created with no
         attributes.
         
-    script/generate scaffolding post has_many:comments hm:viewers
+    script/generate scaffold post has_many:comments hm:viewers
 
         Will create a Post model with the comments and viewers has_many 
         declarations.
 
-    script/generate scaffolding post has_many_dependent:comments hmd:viewers
+    script/generate scaffold post has_many_dependent:comments hmd:viewers
 
         Same as has_many but adds the :dependent => :destroy options.
 
-    script/generate scaffolding post belongs_to:blog bt:user
+    script/generate scaffold post belongs_to:blog bt:user
 
         Will create a Post model with the blog and user belongs_to declarations 
         and a migration file with the blog_id and user_id attributes.
 
-    script/generate scaffolding post photo:paperclip
+    script/generate scaffold post photo:paperclip
 
         Will create a Post model with the photo has_attached_file declaration
         and a file field in your view.  This does not yet generate the paperclip
@@ -85,21 +85,21 @@ Examples:
         or write your own.  This will also include the :html => {:multipart => true}
         declaration in your view.
 
-    script/generate scaffolding post price:currency
+    script/generate scaffold post price:currency
 
         Will create a Post model with a decimal attribute price.  This option also 
         generates an attr_accessor, before_save callback, and after_initialize
         callback all used to handle currency validations.  The currency validation
         makes use of the Validator class which can be found in my rails template.
         
-    script/generate scaffolding post name:string content:text index new edit
+    script/generate scaffold post name:string content:text index new edit
         
         Will create a Post model and migration file with the name and content
         attributes. It will also create a controller with index, new, create,
         edit, and update actions. Notice the create and update actions are
         added automatically with new and edit.
     
-    script/generate scaffolding post ! show new
+    script/generate scaffold post ! show new
         
         Creates a posts controller (no model) with index, edit, update, and
         destroy actions.
