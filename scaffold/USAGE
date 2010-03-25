@@ -26,6 +26,13 @@ Dependencies:
     the views.
 
 Usage:
+    This will replace the default scaffold generator.  If you would still like to 
+    have access to the default scaffold do:
+    - rename scaffold directory to my_scaffold
+    - rename scaffold_generator.rb to my_scaffold_generator.rb
+    - change the first line of my_scaffold_generator.rb to:
+        class MyScaffoldGenerator < Rails::Generator::Base
+
     Pass the name of the model, either CamelCased or under_scored, as the first
     argument along with an optional list of attribute pairs and controller actions.
 
