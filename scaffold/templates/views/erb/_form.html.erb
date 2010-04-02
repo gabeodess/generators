@@ -1,29 +1,29 @@
 <%% form_for @<%= singular_name %><%= ', :html => {:multipart => true}' unless paperclips.empty? %> do |f| %>
-	<%%= f.error_messages %>
+  <%%= f.error_messages %>
 <%- for attribute in attributes -%>
-	<%- if attribute.name =~ /_id$/ -%>
-	<%%= f.hidden_field :<%= attribute.name %> %>
-	<%- elsif currencies.include?(attribute.name) -%>
-	<p>
-		<%%= f.label :your_<%= attribute.name %> %><br />
-		<%%= f.<%= attribute.field_type %> :your_<%= attribute.name %> %>
-	</p>
-	<%- else -%>
-	<p>
-		<%%= f.label :<%= attribute.name %> %><br />
-		<%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
-	</p>
-	<%- end -%>
+  <%- if attribute.name =~ /_id$/ -%>
+  <%%= f.hidden_field :<%= attribute.name %> %>
+  <%- elsif currencies.include?(attribute.name) -%>
+  <p>
+    <%%= f.label :your_<%= attribute.name %>, "<%= attribute.name.titleize %>" %><br />
+    $<%%= f.<%= attribute.field_type %> :your_<%= attribute.name %> %>
+  </p>
+  <%- else -%>
+  <p>
+    <%%= f.label :<%= attribute.name %> %><br />
+    <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
+  </p>
+  <%- end -%>
 <%- end -%>
 <%- if !paperclips.blank? -%>
   <%- for paperclip in paperclips -%>
-	<p>
-		<%%= f.label :<%= paperclip %> %><br />
-		<%%= f.file_field :<%= paperclip %> %>
-		<%%= link_to_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
-		<%%= link_to_destroy_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
-	</p>
+  <p>
+    <%%= f.label :<%= paperclip %> %><br />
+    <%%= f.file_field :<%= paperclip %> %>
+    <%%= link_to_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
+    <%%= link_to_destroy_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
+  </p>
   <%- end -%>
 <%- end -%>
-	<p><%%= f.submit "Submit" %></p>
+  <p><%%= f.submit "Submit" %></p>
 <%% end %>
