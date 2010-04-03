@@ -6,7 +6,7 @@
   <%- elsif currencies.include?(attribute.name) -%>
   <p>
     <%%= f.label :your_<%= attribute.name %>, "<%= attribute.name.titleize %>" %><br />
-    <%%= f.<%= attribute.field_type %> :your_<%= attribute.name %> %>
+    $<%%= f.<%= attribute.field_type %> :your_<%= attribute.name %> %>
   </p>
   <%- else -%>
   <p>
