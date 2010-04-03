@@ -1,5 +1,5 @@
 class ScaffoldGenerator < Rails::Generator::Base
-  attr_accessor :name, :attributes, :controller_actions, :associations, :paperclips, :currencies, :dependencies
+  attr_accessor :name, :attributes, :controller_actions, :associations, :paperclips, :currencies, :dependencies, :paperclip_images
   
   def initialize(runtime_args, runtime_options = {})
     super
@@ -12,6 +12,7 @@ class ScaffoldGenerator < Rails::Generator::Base
     @paperclips = []
     @currencies = []
     @dependencies = []
+    @paperclip_images = []
     
     @args[1..-1].each do |arg|
       if arg == '!'
@@ -35,12 +36,13 @@ class ScaffoldGenerator < Rails::Generator::Base
         case array[1]
         when 'paperclip'
           @paperclips << array[0]
+          @paperclip_images << array[0] if array[2] == 'image'
           skip_attribute = true
         when 'currency'
           @currencies << array[0]
           array[1] = 'decimal'
         end
-        @attributes << Rails::Generator::GeneratedAttribute.new(*array) unless skip_attribute
+        @attributes << Rails::Generator::GeneratedAttribute.new(*(array.slice(0,2))) unless skip_attribute
       else
         @controller_actions << arg
         @controller_actions << 'create' if arg == 'new'
