@@ -2,7 +2,7 @@ class <%= class_name %> < ActiveRecord::Base
   
   def after_initialize
   <%- currencies.each do |currency| -%>
-    self.your_<%= currency %> ||= <%= currency %> if <%= currency %>
+    self.your_<%= currency %> ||= <%= currency %>.to_s if <%= currency %>
   <%- end -%>
   end
   
