@@ -29,7 +29,7 @@ class <%= class_name %> < ActiveRecord::Base
   <%- for currency in currencies -%>
   validates_format_of :your_<%= currency %>, :with => Validator.currency_regex, :allow_blank => true
   <%- end -%>
-  <%- paperclip_images.each do |paperclip_image| ->
+  <%- paperclip_images.each do |paperclip_image| -%>
   validates_attachment_content_type :<%= paperclip_image %>, 
                                     :content_type => IMAGE_TYPES, 
                                     :message => "is not one of the allowed file types (#{IMAGE_TYPES.join(", ")})."
