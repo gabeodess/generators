@@ -35,7 +35,8 @@ class <%= class_name %> < ActiveRecord::Base
   <%- paperclip_images.each do |paperclip_image| -%>
   validates_attachment_content_type :<%= paperclip_image %>, 
                                     :content_type => IMAGE_TYPES, 
-                                    :message => "is not one of the allowed file types (#{IMAGE_TYPES.join(", ")})."
+                                    :message => "is not one of the allowed file types (#{IMAGE_TYPES.join(", ")}).",
+                                    :allow_nil => true
   <%- end -%>
   
   <%- if !currencies.blank? -%>
