@@ -17,17 +17,20 @@ class <%= class_name %> < ActiveRecord::Base
   has_attached_file :<%= paperclip %>
 <%- end -%>
   
-<%- if !currencies.blank? -%>
   # ==============
   # = Attributes =
   # ==============
+  <%- if !currencies.blank? -%>
   attr_accessor <%= currencies.map{|item| ":your_#{item}"}.join(', ') %>
+  <%- end -%>
   
   # ===============
   # = Validations =
   # ===============
+  <%- if !currencies.blank? -%>
   <%- for currency in currencies -%>
   validates_format_of :your_<%= currency %>, :with => Validator.currency_regex, :allow_blank => true
+  <%- end -%>
   <%- end -%>
   <%- paperclip_images.each do |paperclip_image| -%>
   validates_attachment_content_type :<%= paperclip_image %>, 
@@ -35,6 +38,7 @@ class <%= class_name %> < ActiveRecord::Base
                                     :message => "is not one of the allowed file types (#{IMAGE_TYPES.join(", ")})."
   <%- end -%>
   
+  <%- if !currencies.blank? -%>
   # =========
   # = Hooks =
   # =========
@@ -46,6 +50,6 @@ class <%= class_name %> < ActiveRecord::Base
   end
   
   <%- end -%>
-<%- end -%>
+  <%- end -%>
   
 end
