@@ -85,6 +85,10 @@ Examples:
         or write your own.  This will also include the :html => {:multipart => true}
         declaration in your view.
 
+    script/generate scaffold post photo:paperclip:image
+    
+        Will create a paperclip attachment with image validation on the content_type.
+    
     script/generate scaffold post price:currency
 
         Will create a Post model with a decimal attribute price.  This option also 
