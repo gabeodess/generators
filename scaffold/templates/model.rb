@@ -9,9 +9,10 @@ class <%= class_name %> < ActiveRecord::Base
   # ================
   # = Associations =
   # ================
-<%- associations.each do |association| -%>
-  <%= association.keys.first %> :<%= association.values.first %><%= ", :dependent => :destroy" if dependencies.include?(association.values.first) %>
+  <%- associations.each do |association| -%>
+  <%= association.keys.first %> :<%= association.values.first %><%= if throughs.keys.include?(association.values.first) then ", :through => :#{throughs[association.values.first]}" end %><%= ", :dependent => :destroy" if dependencies.include?(association.values.first) %><%= ", :polymorphic => true" if polymorphics.include?(association.values.first) %>
 <%- end -%>
+
   
 <%- paperclips.each do |paperclip| -%>
   has_attached_file :<%= paperclip %>
@@ -35,7 +36,7 @@ class <%= class_name %> < ActiveRecord::Base
   <%- paperclip_images.each do |paperclip_image| -%>
   validates_attachment_content_type :<%= paperclip_image %>, 
                                     :content_type => IMAGE_TYPES, 
-                                    :message => "is not one of the allowed file types (#{IMAGE_TYPES.join(", ")}).",
+                                    :message => "is not one of the allowed file types (#{IMAGE_EXTENSIONS.join(", ")}).",
                                     :allow_nil => true
   <%- end -%>
   
