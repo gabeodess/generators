@@ -1,3 +1,3 @@
   def index
-    @<%= plural_name %> = <%= class_name %>.all
+    @<%= plural_name %> = <%= class_name %>.paginate(:page => params[:page])
   end
