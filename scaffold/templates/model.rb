@@ -29,6 +29,9 @@ class <%= class_name %> < ActiveRecord::Base
   # = Validations =
   # ===============
   <%- if !currencies.blank? -%>
+  <%- for email in emails -%>
+  validates_format_of :<%= email %>, :with => Validator.email_regex, :allow_blank => true
+  <%- end -%>
   <%- for currency in currencies -%>
   validates_format_of :your_<%= currency %>, :with => Validator.currency_regex, :allow_blank => true
   <%- end -%>

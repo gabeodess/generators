@@ -1,5 +1,6 @@
 class ScaffoldGenerator < Rails::Generator::Base
-  attr_accessor :name, :attributes, :controller_actions, :associations, :paperclips, :currencies, :dependencies, :paperclip_images, :polymorphics, :throughs
+  attr_accessor :name, :attributes, :controller_actions, :associations, :paperclips, :currencies, :dependencies, 
+    :paperclip_images, :polymorphics, :throughs, :emails
   
   def initialize(runtime_args, runtime_options = {})
     super
@@ -14,6 +15,7 @@ class ScaffoldGenerator < Rails::Generator::Base
     @dependencies = []
     @paperclip_images = []
     @polymorphics = []
+    @emails = []
     @throughs = {}
     
     @args[1..-1].each do |arg|
@@ -53,6 +55,9 @@ class ScaffoldGenerator < Rails::Generator::Base
         when 'currency'
           @currencies << array[0]
           array[1] = 'decimal'
+        when 'email'
+          @emails << array[0]
+          array[1] = 'string'
         end
         @attributes << Rails::Generator::GeneratedAttribute.new(*(array.slice(0,2))) unless skip_attribute
       else
