@@ -12,7 +12,7 @@ Description:
 Features:
     - currency as a datatype
     - paperclip as a datatype
-    - support for associations (has many and belongs to)
+    - support for associations (has many and belongs to including indexing)
 
 Dependencies:
     This generator is meant to be used with a rails project generated using my
@@ -72,7 +72,8 @@ Examples:
     script/generate scaffold post belongs_to:blog bt:user
 
         Will create a Post model with the blog and user belongs_to declarations 
-        and a migration file with the blog_id and user_id attributes.
+        and a migration file with the blog_id and user_id attributes as well as
+				indexes for each.
 
     script/generate scaffold post photo:paperclip
 
