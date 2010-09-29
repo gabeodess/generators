@@ -3,12 +3,15 @@
 <%%= will_paginate %>
 
 <table>
-  <tr>
-  <%- for attribute in attributes -%>
-    <th><%= attribute.column.human_name.titleize %></th>
-  <%- end -%>
-  </tr>
-  <%% for <%= singular_name %> in @<%= plural_name %> %>
+	<thead>
+	  <tr>
+	  <%- for attribute in attributes -%>
+	    <th><%= attribute.column.human_name.titleize %></th>
+	  <%- end -%>
+	  </tr>
+	</thead>
+	<tbody>
+	  <%% for <%= singular_name %> in @<%= plural_name %> %>
     <tr>
     <%- for attribute in attributes -%>
     	<%- if currencies.include?(attribute.name) -%>
@@ -19,7 +22,8 @@
 		<%- end -%>
 	    <td><%%= link_to_crud <%= singular_name %> %></td>
     </tr>
-  <%% end %>
+	  <%% end %>
+	</tbody>
 </table>
 
 <%%= will_paginate %>
