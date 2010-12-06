@@ -29,5 +29,5 @@
 <%%= will_paginate %>
 
 <%- if action? :new -%>
-<p><%%= link_to_new :<%= singular_name %>, :text => "New <%= singular_name.titleize %>" %></p>
+<p><%%= link_to "New <%= singular_name.titleize %>", :<%= singular_name %> %></p>
 <%- end -%>

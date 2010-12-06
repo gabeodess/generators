@@ -20,8 +20,6 @@
   <p>
     <%%= f.label :<%= paperclip %> %><br />
     <%%= f.file_field :<%= paperclip %> %>
-    <%%= link_to_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
-    <%%= link_to_destroy_paperclip(@<%= singular_name %>, :<%= paperclip %>) %>
   </p>
   <%- end -%>
 <%- end -%>
