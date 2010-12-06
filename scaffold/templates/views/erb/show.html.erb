@@ -23,7 +23,7 @@
 
 <p>
 <%- if action? :edit -%>
-  <%%= link_to "Edit" @<%= singular_name %> %> |
+  <%%= link_to "Edit", @<%= singular_name %> %> |
 <%- end -%>
 <%- if action? :destroy -%>
   <%%= link_to "Destroy", @<%= singular_name %>, :method => :delete %> |
